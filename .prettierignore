@@ -4,3 +4,14 @@ coverage
 
 # Ignore all HTML files:
 **/*.html
+
+# Ignore all json files:
+**/*.json
+
+# Ignore all config files:
+**/*.yaml
+.prettierrc
+.eslintignore
+
+# Ignore all markdown files:
+**/*.md
