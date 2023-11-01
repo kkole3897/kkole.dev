@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "kkole.dev",
+  title: 'kkole.dev',
   description: "jinkwan's blog",
 };
 
