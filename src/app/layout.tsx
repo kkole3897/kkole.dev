@@ -17,7 +17,9 @@ export default function RootLayout({
     <html lang="ko" className={`${mono.variable} ${serif.variable}`}>
       <body>
         <BaseHeader />
-        {children}
+        <div className="flex justify-center">
+          <div className="w-[768px] p-[20px]">{children}</div>
+        </div>
       </body>
     </html>
   );
