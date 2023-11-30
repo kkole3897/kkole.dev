@@ -32,14 +32,12 @@ export default function BaseHeader() {
   return (
     <header className="h-header">
       <div className="flex fixed top-0 left-0 right-0 h-header border-b border-cyan-600 bg-cyan-800">
-        <div>
-          <Link
-            href="/"
-            className="flex items-center w-[200px] h-full px-[16px] border-r border-cyan-600 text-cyan-500 font-mono font-bold"
-          >
-            kkole.dev
-          </Link>
-        </div>
+        <Link
+          href="/"
+          className="flex items-center w-[200px] h-full px-[16px] border-r border-cyan-600 text-cyan-500 font-mono font-bold"
+        >
+          kkole.dev
+        </Link>
         <div>
           <SubLink href="/blog">blog</SubLink>
         </div>
