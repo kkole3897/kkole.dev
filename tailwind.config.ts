@@ -46,7 +46,7 @@ const config: Config = {
     },
     fontFamily: {
       mono: 'var(--font-mono)',
-      serif: 'var(--font-serif)',
+      sans: 'var(--font-sans)',
     },
     extend: {
       height: {

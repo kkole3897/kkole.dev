@@ -1,0 +1,25 @@
+.post-heading {
+  color: var(--gray-500);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.875rem;
+}
+
+h1.post-heading {
+  font-size: 2.25rem;
+  line-height: 2.875rem;
+}
+
+h2.post-heading {
+  font-size: 1.75rem;
+  line-height: 2.375rem;
+}
+
+h3.post-heading {
+  font-size: 1.5rem;
+  line-height: 2.125rem;
+}
+
+.post-heading:not(:last-child) {
+  margin-bottom: 24px;
+}

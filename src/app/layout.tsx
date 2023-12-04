@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import BaseHeader from '@/app/components/base-header';
-import { mono, serif } from '@/theme/fonts';
+import { mono, sans } from '@/theme/fonts';
 
 export const metadata: Metadata = {
   title: 'kkole.dev',
@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={`${mono.variable} ${serif.variable}`}>
+    <html lang="ko" className={`${mono.variable} ${sans.variable}`}>
       <body>
         <BaseHeader />
         <div className="flex justify-center">

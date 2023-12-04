@@ -8,7 +8,7 @@ export const mono = FiraCode({
   variable: '--font-mono',
 });
 
-export const serif = localFont({
+export const sans = localFont({
   src: [
     {
       path: '../../public/fonts/Pretendard-Black.subset.woff2',
@@ -68,5 +68,5 @@ export const serif = localFont({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-  variable: '--font-serif',
+  variable: '--font-sans',
 });
