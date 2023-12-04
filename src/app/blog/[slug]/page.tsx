@@ -4,6 +4,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 import { notFound } from 'next/navigation';
 import type { MDXComponents } from 'mdx/types';
 import Heading from './components/heading';
+import PostLink from './components/post-link';
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -17,6 +18,11 @@ const mdxComponents: MDXComponents = {
   h4: ({ children }) => <Heading as="h4">{children}</Heading>,
   h5: ({ children }) => <Heading as="h5">{children}</Heading>,
   h6: ({ children }) => <Heading as="h6">{children}</Heading>,
+  a: ({ children, target, href }) => (
+    <PostLink href={href as string} target={target}>
+      {children}
+    </PostLink>
+  ),
 };
 
 function PostPage({ params }: { params: { slug: string } }) {
