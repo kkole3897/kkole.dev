@@ -12,7 +12,6 @@ export async function generateStaticParams() {
 }
 
 const mdxComponents: MDXComponents = {
-  h1: ({ children }) => <Heading>{children}</Heading>,
   h2: ({ children }) => <Heading as="h2">{children}</Heading>,
   h3: ({ children }) => <Heading as="h3">{children}</Heading>,
   h4: ({ children }) => <Heading as="h4">{children}</Heading>,
@@ -30,10 +29,14 @@ function PostPage({ params }: { params: { slug: string } }) {
 
   return (
     <main>
-      <article className="blog-article">
-        <Heading>{post.title}</Heading>
-        <div className="mb-[40px] text-gray-500">{date}</div>
-        <MDXContent components={mdxComponents} />
+      <article>
+        <div className="flex flex-col gap-y-[24px] pb-[40px]">
+          <Heading>{post.title}</Heading>
+          <div>{date}</div>
+        </div>
+        <div className="flex flex-col gap-y-[40px]">
+          <MDXContent components={mdxComponents} />
+        </div>
       </article>
     </main>
   );

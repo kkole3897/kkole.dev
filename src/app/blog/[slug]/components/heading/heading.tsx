@@ -1,5 +1,5 @@
 import React from 'react';
-import './heading.css';
+import styles from './heading.module.css';
 
 type HeadingElementType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
@@ -13,7 +13,7 @@ export default function Heading(props: Props) {
 
   return React.createElement(
     as,
-    { ...rest, className: 'post-heading' },
+    { ...rest, className: styles['post-heading'] },
     children
   );
 }

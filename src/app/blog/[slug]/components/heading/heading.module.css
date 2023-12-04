@@ -19,7 +19,3 @@ h3.post-heading {
   font-size: 1.5rem;
   line-height: 2.125rem;
 }
-
-.post-heading:not(:last-child) {
-  margin-bottom: 24px;
-}
