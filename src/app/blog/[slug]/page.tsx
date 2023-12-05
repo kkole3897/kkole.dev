@@ -7,6 +7,7 @@ import Heading from './components/heading';
 import PostLink from './components/post-link';
 import Divider from './components/divider';
 import Blockquote from './components/blockquote';
+import './style.css';
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
