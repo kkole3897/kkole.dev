@@ -8,6 +8,8 @@ import PostLink from './components/post-link';
 import Divider from './components/divider';
 import Blockquote from './components/blockquote';
 import './style.css';
+import PostList from './components/post-list';
+import PostListItem from './components/post-list-item';
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -26,6 +28,8 @@ const mdxComponents: MDXComponents = {
   ),
   hr: () => <Divider />,
   blockquote: ({ children }) => <Blockquote>{children}</Blockquote>,
+  ul: ({ children }) => <PostList>{children}</PostList>,
+  li: ({ children }) => <PostListItem>{children}</PostListItem>,
 };
 
 function PostPage({ params }: { params: { slug: string } }) {
