@@ -18,7 +18,7 @@ export default function RootLayout({
       <body>
         <BaseHeader />
         <div className="flex justify-center">
-          <div className="w-[768px] p-[20px]">{children}</div>
+          <div className="w-[768px] px-[20px] pt-[60px]">{children}</div>
         </div>
       </body>
     </html>
