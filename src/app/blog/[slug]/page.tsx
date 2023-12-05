@@ -6,6 +6,7 @@ import type { MDXComponents } from 'mdx/types';
 import Heading from './components/heading';
 import PostLink from './components/post-link';
 import Divider from './components/divider';
+import Blockquote from './components/blockquote';
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -23,6 +24,7 @@ const mdxComponents: MDXComponents = {
     <PostLink href={href as string}>{children}</PostLink>
   ),
   hr: () => <Divider />,
+  blockquote: ({ children }) => <Blockquote>{children}</Blockquote>,
 };
 
 function PostPage({ params }: { params: { slug: string } }) {
