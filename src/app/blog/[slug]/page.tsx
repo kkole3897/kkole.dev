@@ -19,10 +19,8 @@ const mdxComponents: MDXComponents = {
   h4: ({ children }) => <Heading as="h4">{children}</Heading>,
   h5: ({ children }) => <Heading as="h5">{children}</Heading>,
   h6: ({ children }) => <Heading as="h6">{children}</Heading>,
-  a: ({ children, target, href }) => (
-    <PostLink href={href as string} target={target}>
-      {children}
-    </PostLink>
+  a: ({ children, href }) => (
+    <PostLink href={href as string}>{children}</PostLink>
   ),
   hr: () => <Divider />,
 };

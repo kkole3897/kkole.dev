@@ -3,15 +3,14 @@ import React from 'react';
 
 interface Props {
   href: string;
-  target?: string;
   children?: React.ReactNode;
 }
 
-export default function PostLink({ href, target, children }: Props) {
+export default function PostLink({ href, children }: Props) {
   return (
     <Link
       href={href}
-      target={target}
+      target="_blank"
       className="text-blue-500 hover:underline underline-offset-[3px]"
     >
       {children}
