@@ -16,9 +16,13 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${mono.variable} ${sans.variable}`}>
       <body>
-        <BaseHeader />
-        <div className="flex justify-center">
-          <div className="w-[768px] px-[20px] pt-[60px]">{children}</div>
+        <div className="flex flex-col h-full">
+          <BaseHeader />
+          <div className="flex flex-col flex-1">
+            <div className="flex flex-col flex-1 w-[768px] mx-auto px-[20px] pt-[60px]">
+              {children}
+            </div>
+          </div>
         </div>
       </body>
     </html>

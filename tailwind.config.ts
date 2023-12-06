@@ -37,6 +37,7 @@ const config: Config = {
         500: 'var(--pink-500)',
       },
       cyan: {
+        400: 'var(--cyan-400)',
         500: 'var(--cyan-500)',
         600: 'var(--cyan-600)',
         700: 'var(--cyan-700)',
