@@ -10,6 +10,7 @@ import Blockquote from './components/blockquote';
 import './style.css';
 import PostList from './components/post-list';
 import PostListItem from './components/post-list-item';
+import PostOrderedList from './components/post-ordered-list';
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -30,6 +31,7 @@ const mdxComponents: MDXComponents = {
   blockquote: ({ children }) => <Blockquote>{children}</Blockquote>,
   ul: ({ children }) => <PostList>{children}</PostList>,
   li: ({ children }) => <PostListItem>{children}</PostListItem>,
+  ol: ({ children }) => <PostOrderedList>{children}</PostOrderedList>,
 };
 
 function PostPage({ params }: { params: { slug: string } }) {
@@ -47,7 +49,7 @@ function PostPage({ params }: { params: { slug: string } }) {
           <Heading>{post.title}</Heading>
           <div>{date}</div>
         </div>
-        <div className="flex flex-col gap-y-[40px]">
+        <div className="flex flex-col gap-y-[40px] leading-7">
           <MDXContent components={mdxComponents} />
         </div>
       </article>
