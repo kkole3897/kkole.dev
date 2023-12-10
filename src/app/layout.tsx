@@ -2,10 +2,23 @@ import type { Metadata } from 'next';
 import './globals.css';
 import BaseHeader from '@/app/components/base-header';
 import { mono, sans } from '@/theme/fonts';
+import {
+  openGraphDescription,
+  openGraphImage,
+  openGraphUrl,
+  openGraphType,
+} from './metadata';
 
 export const metadata: Metadata = {
   title: 'kkole.dev',
-  description: "jinkwan's blog",
+  description: "jinkwan's frontend development blog",
+  openGraph: {
+    ...openGraphDescription,
+    ...openGraphImage,
+    ...openGraphUrl,
+    ...openGraphType,
+    title: 'kkole.dev',
+  },
 };
 
 export default function RootLayout({

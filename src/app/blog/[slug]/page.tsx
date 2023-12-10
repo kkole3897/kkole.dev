@@ -3,6 +3,8 @@ import { allPosts } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { notFound } from 'next/navigation';
 import type { MDXComponents } from 'mdx/types';
+import type { Metadata } from 'next';
+import { openGraphImage, openGraphUrl, openGraphType } from '@/app/metadata';
 import Heading from './components/heading';
 import PostLink from './components/post-link';
 import Divider from './components/divider';
@@ -12,10 +14,37 @@ import PostList from './components/post-list';
 import PostListItem from './components/post-list-item';
 import PostOrderedList from './components/post-ordered-list';
 
+type Props = {
+  params: { slug: string };
+};
+
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
     slug: post.id,
   }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = params;
+
+  const post = allPosts.findLast((p) => p.id === slug);
+
+  if (!post) return {};
+
+  const { title: postTitle, description } = post;
+  const title = `${postTitle} | kkole.dev`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      ...openGraphImage,
+      ...openGraphUrl,
+      ...openGraphType,
+    },
+  };
 }
 
 const mdxComponents: MDXComponents = {
@@ -34,7 +63,7 @@ const mdxComponents: MDXComponents = {
   ol: ({ children }) => <PostOrderedList>{children}</PostOrderedList>,
 };
 
-function PostPage({ params }: { params: { slug: string } }) {
+function PostPage({ params }: Props) {
   const post = allPosts.find((p) => p.id === params.slug);
 
   if (!post) notFound();
