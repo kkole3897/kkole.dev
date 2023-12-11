@@ -4,7 +4,16 @@
 
 @layer base {
   :root {
+    --gray-50: #fcfdfe;
+    --gray-100: #f5f7fa;
+    --gray-200: #edf0f6;
+    --gray-300: #e5eaf2;
+    --gray-400: #dde4ee;
     --gray-500: #d6deeb;
+    --gray-600: #abb1bc;
+    --gray-700: #80858d;
+    --gray-800: #55585e;
+    --gray-900: #2a2c2e;
     --red-500: #ff6363;
     --orange-500: #f78c6c;
     --yellow-500: #ecc48d;
