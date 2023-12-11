@@ -76,7 +76,7 @@ function PostPage({ params }: Props) {
       <article>
         <div className="flex flex-col gap-y-[24px] pb-[40px]">
           <Heading>{post.title}</Heading>
-          <div>{date}</div>
+          <div className="text-gray-600">{date}</div>
         </div>
         <div className="flex flex-col gap-y-[40px] leading-7">
           <MDXContent components={mdxComponents} />

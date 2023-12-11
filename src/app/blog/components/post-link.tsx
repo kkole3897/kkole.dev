@@ -12,7 +12,7 @@ function PostLink({ post }: { post: Post }) {
         <div className="text-gray-500 text-xl font-bold truncate">
           {post.title}
         </div>
-        <div className="text-gray-500 line-clamp-2">{post.description}</div>
+        <div className="text-gray-600 line-clamp-2">{post.description}</div>
         <div className="text-teal-700 text-[0.875rem]">{date}</div>
       </div>
     </Link>

@@ -14,7 +14,7 @@ export default function Home() {
           href="https://github.com/kkole3897"
           target="_blank"
           rel="noreferrer"
-          className="text-gray-500"
+          className="text-gray-600 hover:text-gray-500"
         >
           <FaGithub size="28" />
         </a>
@@ -22,7 +22,7 @@ export default function Home() {
           href="mailto:kkole3897@gmail.com"
           target="_blank"
           rel="noreferrer"
-          className="text-gray-500"
+          className="text-gray-600 hover:text-gray-500"
         >
           <IoMail size="28" />
         </a>
