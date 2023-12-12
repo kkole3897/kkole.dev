@@ -1,4 +1,5 @@
 .post-heading {
+  @apply mt-12;
   color: var(--gray-500);
   font-size: 1.25rem;
   font-weight: 700;
@@ -6,6 +7,7 @@
 }
 
 h1.post-heading {
+  @apply mt-0;
   font-size: 2.25rem;
   line-height: 2.875rem;
 }

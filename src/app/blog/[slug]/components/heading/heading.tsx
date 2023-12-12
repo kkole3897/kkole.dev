@@ -13,7 +13,7 @@ export default function Heading(props: Props) {
 
   return React.createElement(
     as,
-    { ...rest, className: styles['post-heading'] },
+    { ...rest, className: `${styles['post-heading']}` },
     children
   );
 }
