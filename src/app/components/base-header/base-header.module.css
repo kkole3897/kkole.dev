@@ -1,0 +1,15 @@
+[data-state='open'] > .menu-icon {
+  @apply hidden;
+}
+
+[data-state='closed'] > .menu-icon {
+  @apply block;
+}
+
+[data-state='open'] > .close-icon {
+  @apply block;
+}
+
+[data-state='closed'] > .close-icon {
+  @apply hidden;
+}

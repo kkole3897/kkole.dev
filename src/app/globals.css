@@ -72,12 +72,6 @@
   button {
     font-family: var(--font-sans);
   }
-  
-  *,
-  ::before,
-  ::after {
-    box-sizing: content-box;
-  }
 }
 
 /**

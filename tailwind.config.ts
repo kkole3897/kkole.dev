@@ -69,6 +69,9 @@ const config: Config = {
       height: {
         header: 'var(--header-height)',
       },
+      spacing: {
+        header: 'var(--header-height)',
+      },
     },
   },
   plugins: [],
