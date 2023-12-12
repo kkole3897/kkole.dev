@@ -1,5 +1,4 @@
 .post-heading {
-  @apply mt-12;
   color: var(--gray-500);
   font-size: 1.25rem;
   font-weight: 700;
@@ -7,17 +6,23 @@
 }
 
 h1.post-heading {
-  @apply mt-0;
   font-size: 2.25rem;
   line-height: 2.875rem;
 }
 
 h2.post-heading {
+  @apply mt-12;
   font-size: 1.75rem;
   line-height: 2.375rem;
 }
 
 h3.post-heading {
+  @apply mt-6;
   font-size: 1.5rem;
   line-height: 2.125rem;
+}
+
+.post-heading:first-child,
+.post-heading + .post-heading {
+  @apply mt-0;
 }
