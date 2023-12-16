@@ -27,13 +27,14 @@ export default function Blog() {
   const posts: Post[] = [...allPosts]
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
     .map((post) => {
-      const { id, title, description, date } = post;
+      const { id, title, description, date, tags } = post;
 
       return {
         id,
         title,
         description,
         date,
+        tags,
       };
     });
 

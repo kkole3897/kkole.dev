@@ -21,6 +21,11 @@ export const Post = defineDocumentType(() => ({
     thumbnailUrl: {
       type: 'string',
     },
+    tags: {
+      type: 'list',
+      of: { type: 'string' },
+      default: [],
+    },
   },
   computedFields: {
     id: {
