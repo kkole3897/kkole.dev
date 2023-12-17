@@ -40,6 +40,6 @@ export default makeSource({
   contentDirPath: 'src/contents',
   documentTypes: [Post],
   mdx: {
-    rehypePlugins: [rehypePrismPlus],
+    rehypePlugins: [[rehypePrismPlus, { defaultLanguage: 'text' }]],
   },
 });
