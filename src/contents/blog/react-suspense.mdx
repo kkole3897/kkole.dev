@@ -1,0 +1,190 @@
+---
+title: '[React] Suspense 어떻게 사용할까?'
+date: 2024-01-02 15:41:00
+description: Suspense의 개념과 사용법, data fetching에서의 Suspense
+tags:
+  - react
+  - suspense
+  - next
+---
+
+React 16에서 실험적 기능으로 추가되어서 React 18에서 정식 기능이 된 `Suspense`에 대해 알아보려고 한다. 처음 봤을 때 data fetching에서 책임 분리를 좀더 명확히 할 수 있을 것 같은 기대감이 있었다. 결론부터 말하면 현재(react v18.2.0) 시점에선 공식적으로 data fetching에서 Suspense를 사용할 수 있는 React API가 없기 때문에 자체적으로 구현한 프레임워크나 data fetching 관련 라이브러리를 사용하길 권장하고 있다. React만으로 Suspense를 data fetching에서 사용할 수 없는 건 아니지만 향후 어떻게 변경될지 알 수 없다.
+
+## Suspense란?
+
+Suspense는 children 컴포넌트의 로딩이 끝날 때까지 fallback을 보여주는 React에서 제공하는 기본 컴포넌트이다. Susepnse는 기본적으로 `React.lazy()`를 통해 동적으로 컴포넌트를 불러오는 지연 시간 동안의 처리를 하기 위해 사용된다.  
+Suspense는 특정 데이터 소스에서만 활성화된다.
+
+- `Relay`나 `Next.js`와 같은 프레임워크에서 구현한 데이터 패칭 방식
+- `lazy`를 사용한 지연 로딩
+
+위의 데이터 소스에서만 활성화되고, effect나 이벤트 헨들러는 감지하지 않기 때문에 현재는 React 단독으로 data fetching에서 Suspense를 사용하기 어렵다. 미래에는 관련 API를 출시할 계획이라고 한다.
+
+## 사용법
+
+기본적으로 아래와 같은 문법으로 사용한다.
+
+```jsx
+<Suspense fallback={<Loading />}>
+  <Child>
+</Suspense>
+```
+
+Suspense의 모든 자식의 코드와 데이터가 로드될 때까지 fallback에 해당되는 컴포넌트를 렌더링한다.
+
+## Data fetching
+
+지금은 React에서 data fetching에서 Suspense를 활성화할 수 있는 공식 api를 지원하고 있지 않지만 다른 라이브러리나 프레임워크 없이 이를 달성할 수 없는 것이 아니다. 하지만 안정적인 방법은 아니기에 프로덕션 단계에서는 사용하지 않는 편이 낫다.
+
+### 외부의 도움 없이 Suspense를 Data Fetching에 이용하기
+
+```js title="wrap-promise.js"
+// wrap-promise.js
+export default function wrapPromise(promise) {
+  let status = 'pending';
+  let response;
+
+  const suspender = promise.then(
+    (res) => {
+      status = 'success';
+      response = res;
+    },
+    (err) => {
+      status = 'error';
+      response = err;
+    }
+  );
+
+  const read = () => {
+    switch (status) {
+      case 'pending':
+        throw suspender;
+      case 'error':
+        throw response;
+      default:
+        return response;
+    }
+  };
+
+  return { read };
+}
+```
+
+```js title="get-data.js"
+// get-data.js
+export default function getData() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ name: 'hello' });
+    }, 3000);
+  });
+}
+```
+
+```jsx title="Component.jsx"
+// Component.jsx
+import wrapPromise from './wrap-promise.js';
+import getData from './get-data.js';
+
+const resource = wrapPromise(getData());
+
+export default function Component() {
+  const data = resource.read();
+
+  return <div>{data.name}</div>
+}
+```
+
+```jsx title="App.jsx"
+// App.jsx
+import { Suspense } from 'react';
+import Component from './Component.jsx';
+import Loading from './Loading.jsx';
+
+function App() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Component />
+    </Suspense>
+  );
+}
+```
+
+위 코드는 Suspense의 동작 과정을 어느정도 알 수 있는 코드이다. Suspense의 자식인 Component는 data fetching 중에는 Promise를 throw하게 된다. React는 data fetching이 완료되지 않은 컴포넌트를 만나면 이 컴포넌트의 렌더링을 멈추고, 가장 가까운 Suspense의 fallback을 찾아 렌더링한다. 이후 다른 컴포넌트의 렌더링을 하게 된다. 다른 컴포넌트의 렌더링을 시도하면서 fetching 상태를 지속적으로 확인하다가 비동기 요청이 완료되서 상태가 변경되면 중단했던 컴포넌트의 렌더링을 다시 이어나가게 된다.
+
+전체 예제 코드는 [여기](https://github.com/kkole3897/react-playground/tree/suspense/packages/react18)에서 확인할 수 있다.
+
+> 예제를 위해서 msw로 mocking한 api를 호출하려고 했는데 응답을 제대로 받지 못하는 문제가 생겼다. 추후 해결하면 따로 업데이트할 예정이다. 실제 api를 호출하거나 promise 함수를 호출하는 방식은 이상 없이 작동한다.
+
+### Next.js에서 사용하기
+
+```jsx
+// Album.jsx
+function getAlbum() {
+  return new Promise((resolve) => {
+    resolve({ name: 'hello' });
+  });
+}
+
+export default async function Album() {
+  const data = await getAlbum();
+
+  return <div>{data.name}</div>;
+}
+```
+
+```jsx
+// page.jsx
+import { Suspense } from 'react';
+import Album from './components/Album';
+import Loading from './components/Loading';
+
+export default function Page() {
+  return (
+    <Susepnse fallback={<Loading />}>
+      <Album />
+    </Susepnse>
+  );
+}
+```
+
+Next.js는 13에서 새롭게 도입한 app router에서 async component를 지원하기 때문에 컴포넌트 내부에서 비동기 함수를 호출하면 요청 중에는 Promise를 반환해서 가장 가까운 Suspense의 fallback을 렌더링하고, 요청이 끝나면 해당 컴포넌트 렌더링을 마무리한다. app router를 사용할 때 `loading` 파일을 만들었다면 다음처럼 자동으로 `page`를 감싸게 된다고 생각하면 된다.
+
+```jsx
+<Suspense fallback={<Loading />}>
+  <Page />
+</Suspense>
+```
+
+이전처럼 page router를 사용한다면 React에 새롭게 도입한 기능을 사용할 수 없기 때문에 React에서 async component를 사용했을 때와 같은 오류가 발생한다.
+
+### React Query와 함께
+
+React Query v5 이후에 `useSuspenseQuery`, `useSuspenseInfiniteQuery`, `useSuspenseQueries`가 추가되면서 data fetching에 Suspense를 공식적으로 활용할 수 있게 되었다.
+
+```jsx
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { getAlbumData } from '@/api/album';
+
+export default function Album() {
+  const { data } = useQuery({
+    queryKey: ['album'],
+    queryFn: getAlbumData,
+  });
+
+  return <div>{data.name}</div>;
+}
+```
+
+이전 버전까지는 실험적인 기능으로 제공하고 있었고, 기존 api에 suspense 옵션을 true로 활성화해서 사용했다.
+
+## 마치며
+
+Suspense를 활용해서 data fetching 구조를 좀 더 선언적으로 활용할 수 있게 된 점에서 이전보다 더 좋은 개발 경험을 얻을 수 있을 것 같다. Next.js 소스코드를 직접 분석하면서 어떻게 구현했는지도 같이 확인해보고 싶었는데 그 부분까지 완벽하게 이해하기는 아직 어려웠다. Loadable이 이와 관련된 부분인 것 같긴 했지만 어떻게 컴포넌트 트리가 구성되고, 파싱하는지 이런 부분을 아직 못 찾아서 아직 확실하진 않다. Next.js 분석을 마무리하지 못해서 아쉽지만 React에서 앞으로 어떻게 발전시켜나갈지 기대가 된다.
+
+## 참조
+
+- [React 공식 - Suspense](https://react-ko.dev/reference/react/Suspense)
+- [Next.js 공식 - Loading UI and Streaming](https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming)
+- [React Query v4 - Suspense](https://tanstack.com/query/v4/docs/react/guides/suspense)
+- [React Query v5 - Suspense](https://tanstack.com/query/v5/docs/react/guides/suspense)
