@@ -19,6 +19,7 @@ export default function Home() {
           className="text-gray-600 hover:text-gray-500"
         >
           <FaGithub size="28" />
+          <span className="sr-only">github</span>
         </a>
         <a
           href="mailto:kkole3897@gmail.com"
@@ -27,6 +28,7 @@ export default function Home() {
           className="text-gray-600 hover:text-gray-500"
         >
           <IoMail size="28" />
+          <span className="sr-only">email</span>
         </a>
       </div>
     </main>
