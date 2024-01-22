@@ -84,6 +84,7 @@
 
 code[class*="language-"],
 pre[class*="language-"] {
+  @apply text-sm;
   color: #d6deeb;
   font-family: var(--font-mono);
   text-align: left;
@@ -91,8 +92,6 @@ pre[class*="language-"] {
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
-  line-height: 1.5;
-  font-size: 1em;
 
   -moz-tab-size: 4;
   -o-tab-size: 4;
