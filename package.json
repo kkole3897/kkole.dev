@@ -45,10 +45,9 @@
       "prettier --write --ignore-unknown"
     ]
   },
-  "packageManager": "pnpm@8.9.2",
   "engines": {
     "node": ">=20",
-    "pnpm": "8.9.2"
+    "pnpm": ">=8"
   },
   "engineStrict": true
 }
